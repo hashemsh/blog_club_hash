@@ -1,4 +1,4 @@
-# blog_club_hash
+# blog club App Project
 
 A new Flutter project.
 
