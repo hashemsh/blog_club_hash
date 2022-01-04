@@ -1,3 +1,6 @@
+// ignore_for_file: unused_import
+
+import 'package:blog_club_hash/data.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -15,20 +18,22 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: HomeScreen(),
+      home: const HomeScreen(),
     );
   }
 }
 
 class HomeScreen extends StatelessWidget {
+  const HomeScreen({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
-            children: [
-              Text('hello world !'),
+            children: const [
+              Text('hello world test !'),
             ],
           ),
         ),
