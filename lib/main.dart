@@ -7,7 +7,7 @@ import 'package:flutter/services.dart';
 
 void main() {
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-    statusBarColor: Colors.white,
+    statusBarColor: Color(0xffF8FAFF),
     statusBarIconBrightness: Brightness.dark,
     systemNavigationBarColor: Colors.white,
     systemNavigationBarIconBrightness: Brightness.dark,
@@ -108,6 +108,7 @@ class HomeScreen extends StatelessWidget {
     final ThemeData themeData = Theme.of(context);
     final stories = AppDatabase.stories;
     return Scaffold(
+      backgroundColor: const Color(0xffF8FAFF),
       body: SafeArea(
         child: SingleChildScrollView(
           physics: const BouncingScrollPhysics(),
