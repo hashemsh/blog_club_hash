@@ -38,7 +38,15 @@ class MyApp extends StatelessWidget {
             ),
           ),
         ),
-        primarySwatch: Colors.blue,
+        colorScheme: const ColorScheme.light(
+          primary: primaryColor,
+          onPrimary: Colors.white,
+          onSurface: primaryTextColor,
+          // background: Color(0xffFBFCFF),
+          background: Color(0xffF8FAFF),
+          surface: Colors.white,
+          onBackground: primaryTextColor,
+        ),
         textTheme: const TextTheme(
           subtitle1: TextStyle(
             fontFamily: FontFamily.avenir,

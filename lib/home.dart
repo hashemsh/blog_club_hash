@@ -14,7 +14,7 @@ class HomeScreen extends StatelessWidget {
     final ThemeData themeData = Theme.of(context);
     final stories = AppDatabase.stories;
     return Scaffold(
-      backgroundColor: const Color(0xffF8FAFF),
+      backgroundColor: themeData.colorScheme.background,
       body: SafeArea(
         child: SingleChildScrollView(
           physics: const BouncingScrollPhysics(),

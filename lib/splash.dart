@@ -1,5 +1,5 @@
 import 'package:blog_club_hash/gen/assets.gen.dart';
-import 'package:blog_club_hash/home.dart';
+import 'package:blog_club_hash/onboarding.dart';
 import 'package:flutter/material.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -18,7 +18,7 @@ class _SplashScreenState extends State<SplashScreen> {
       (value) {
         Navigator.of(context).pushReplacement(
           MaterialPageRoute(
-            builder: (context) => const HomeScreen(),
+            builder: (context) => const OnBoardingScreen(),
           ),
         );
       },
