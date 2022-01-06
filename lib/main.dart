@@ -456,7 +456,10 @@ class _Post extends StatelessWidget {
       child: Row(
         children: [
           ClipRRect(
-            borderRadius: BorderRadius.circular(16),
+            borderRadius: const BorderRadius.only(
+              topLeft: Radius.circular(16),
+              bottomLeft: Radius.circular(16),
+            ),
             child: Image.asset(
               'assets/img/posts/small/${post.imageFileName}',
             ),
