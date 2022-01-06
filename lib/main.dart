@@ -1,3 +1,4 @@
+import 'package:blog_club_hash/carousel/carousel_slider.dart';
 import 'package:blog_club_hash/data.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
@@ -30,6 +31,7 @@ class MyApp extends StatelessWidget {
             fontFamily: defaultFontFamily,
             fontWeight: FontWeight.bold,
             color: primaryTextColor,
+            fontSize: 18,
           ),
           headline4: TextStyle(
             fontFamily: defaultFontFamily,
@@ -86,10 +88,123 @@ class HomeScreen extends StatelessWidget {
                   style: themeData.textTheme.headline4,
                 ),
               ),
-              _StoryList(stories: stories)
+              _StoryList(stories: stories),
+              const SizedBox(
+                height: 16,
+              ),
+              const _CategoryList(),
             ],
           ),
         ),
+      ),
+    );
+  }
+}
+
+class _CategoryList extends StatelessWidget {
+  const _CategoryList({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final categories = AppDatabase.categories;
+    return CarouselSlider.builder(
+      itemCount: categories.length,
+      itemBuilder: (context, index, realIndex) {
+        return _CategoryItem(
+          left: realIndex == 0 ? 32 : 8,
+          right: realIndex == categories.length - 1 ? 32 : 8,
+          category: categories[realIndex],
+        );
+      },
+      options: CarouselOptions(
+        scrollDirection: Axis.horizontal,
+        viewportFraction: 0.8,
+        aspectRatio: 1.2,
+        initialPage: 0,
+        scrollPhysics: const BouncingScrollPhysics(),
+        disableCenter: true,
+        enableInfiniteScroll: false,
+        enlargeStrategy: CenterPageEnlargeStrategy.height,
+        enlargeCenterPage: true,
+      ),
+    );
+  }
+}
+
+class _CategoryItem extends StatelessWidget {
+  final Category category;
+  final double left;
+  final double right;
+  const _CategoryItem({
+    Key? key,
+    required this.category,
+    required this.left,
+    required this.right,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: EdgeInsets.fromLTRB(left, 0, right, 0),
+      child: Stack(
+        children: [
+          Positioned.fill(
+            top: 100,
+            right: 65,
+            left: 65,
+            bottom: 24,
+            child: Container(
+              decoration: const BoxDecoration(
+                boxShadow: [
+                  BoxShadow(
+                    blurRadius: 20,
+                    color: Color(0xaa0D253C),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          Positioned.fill(
+            child: Container(
+              margin: const EdgeInsets.fromLTRB(0, 0, 0, 16),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(32),
+                child: Image.asset(
+                  'assets/img/posts/large/${category.imageFileName}',
+                  fit: BoxFit.cover,
+                ),
+              ),
+              foregroundDecoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(32),
+                gradient: const LinearGradient(
+                  begin: Alignment.bottomCenter,
+                  end: Alignment.center,
+                  colors: [
+                    Color(0xff0D253C),
+                    Colors.transparent,
+                  ],
+                ),
+              ),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(32),
+                color: Colors.blue,
+              ),
+            ),
+          ),
+          Positioned(
+            bottom: 48,
+            left: 32,
+            child: Text(
+              category.title,
+              style: Theme.of(context)
+                  .textTheme
+                  .headline6!
+                  .apply(color: Colors.white),
+            ),
+          ),
+        ],
       ),
     );
   }
