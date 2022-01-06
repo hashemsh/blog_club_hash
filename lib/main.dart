@@ -346,7 +346,7 @@ class _Story extends StatelessWidget {
       child: Container(
         margin: const EdgeInsets.all(2),
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: const Color(0xffF8FAFF),
           borderRadius: BorderRadius.circular(22),
         ),
         padding: const EdgeInsets.all(5),
