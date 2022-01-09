@@ -1,3 +1,4 @@
+import 'package:blog_club_hash/article.dart';
 import 'package:blog_club_hash/gen/fonts.gen.dart';
 import 'package:blog_club_hash/home.dart';
 import 'package:blog_club_hash/splash.dart';
@@ -22,7 +23,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     const primaryTextColor = Color(0xff0D253C);
     const secondaryTextColor = Color(0xff2D4379);
-    // ignore: unused_local_variable
+    const backgroundMainColor = Color(0xffF8FAFF);
     const primaryColor = Color(0xff376AED);
     return MaterialApp(
       title: 'Blog Club',
@@ -41,11 +42,19 @@ class MyApp extends StatelessWidget {
         colorScheme: const ColorScheme.light(
           primary: primaryColor,
           onPrimary: Colors.white,
+          secondary: Colors.black,
           onSurface: primaryTextColor,
-          // background: Color(0xffFBFCFF),
-          background: Color(0xffF8FAFF),
+          background: backgroundMainColor,
           surface: Colors.white,
           onBackground: primaryTextColor,
+        ),
+        appBarTheme: const AppBarTheme(
+          backgroundColor: Colors.white,
+          foregroundColor: primaryTextColor,
+          titleSpacing: 32,
+        ),
+        snackBarTheme: const SnackBarThemeData(
+          backgroundColor: primaryColor,
         ),
         textTheme: const TextTheme(
           subtitle1: TextStyle(
@@ -102,7 +111,7 @@ class MyApp extends StatelessWidget {
       //     ),
       //   ],
       // ),
-      home: const SplashScreen(),
+      home: const ArticleScreen(),
     );
   }
 }
