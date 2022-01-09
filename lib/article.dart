@@ -44,12 +44,13 @@ class ArticleScreen extends StatelessWidget {
           ),
         ),
       ),
-      backgroundColor: themeData.colorScheme.surface,
+      backgroundColor: themeData.colorScheme.background,
       body: Stack(
         children: [
           CustomScrollView(
             slivers: [
               SliverAppBar(
+                backgroundColor: themeData.colorScheme.background,
                 title: const Text('Article'),
                 actions: [
                   IconButton(
@@ -133,22 +134,31 @@ class ArticleScreen extends StatelessWidget {
                     ),
                     child: Assets.img.posts.large.singlePost.image(),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(32, 32, 32, 16),
-                    child: Text(
-                      'A man’s sexuality is never your mind responsibility.',
-                      style: themeData.textTheme.headline5,
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(32, 0, 32, 84),
-                    child: Text(
-                      'This one got an incredible amount of backlash the last time I said it, so I’m going to say it again: a man’s sexuality is never, ever your responsibility, under any circumstances. Whether it’s the fifth date or your twentieth year of marriage, the correct determining factor for whether or not you have sex with your partner isn’t whether you ought to “take care of him” or “put out” because it’s been a while or he’s really horny — the correct determining factor for whether or not you have sex is whether or not you want to have sex.This one got an incredible amount of backlash the last time I said it, so I’m going to say it again: a man’s sexuality is never, ever your responsibility, under any circumstances. Whether it’s the fifth date or your twentieth year of marriage, the correct determining factor for whether or not you have sex with your partner isn’t whether you ought to “take care of him” or “put out” because it’s been a while or he’s really horny — the correct determining factor for whether or not you have sex is whether or not you want to have sex.This one got an incredible amount of backlash the last time I said it, so I’m going to say it again: a man’s sexuality is never, ever your responsibility, under any circumstances. Whether it’s the fifth date or your twentieth year of marriage, the correct determining factor for whether or not you have sex with your partner isn’t whether you ought to “take care of him” or “put out” because it’s been a while or he’s really horny — the correct determining factor for whether or not you have sex is whether or not you want to have sex.',
-                      style: themeData.textTheme.bodyText2!.copyWith(
-                        color: themeData.colorScheme.secondary.withOpacity(0.8),
-                        height: 1.6,
-                        fontSize: 14,
-                      ),
+                  Container(
+                    decoration:
+                        BoxDecoration(color: themeData.colorScheme.surface),
+                    child: Column(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(32, 32, 32, 16),
+                          child: Text(
+                            'A man’s sexuality is never your mind responsibility.',
+                            style: themeData.textTheme.headline5,
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(32, 0, 32, 84),
+                          child: Text(
+                            'This one got an incredible amount of backlash the last time I said it, so I’m going to say it again: a man’s sexuality is never, ever your responsibility, under any circumstances. Whether it’s the fifth date or your twentieth year of marriage, the correct determining factor for whether or not you have sex with your partner isn’t whether you ought to “take care of him” or “put out” because it’s been a while or he’s really horny — the correct determining factor for whether or not you have sex is whether or not you want to have sex.This one got an incredible amount of backlash the last time I said it, so I’m going to say it again: a man’s sexuality is never, ever your responsibility, under any circumstances. Whether it’s the fifth date or your twentieth year of marriage, the correct determining factor for whether or not you have sex with your partner isn’t whether you ought to “take care of him” or “put out” because it’s been a while or he’s really horny — the correct determining factor for whether or not you have sex is whether or not you want to have sex.This one got an incredible amount of backlash the last time I said it, so I’m going to say it again: a man’s sexuality is never, ever your responsibility, under any circumstances. Whether it’s the fifth date or your twentieth year of marriage, the correct determining factor for whether or not you have sex with your partner isn’t whether you ought to “take care of him” or “put out” because it’s been a while or he’s really horny — the correct determining factor for whether or not you have sex is whether or not you want to have sex.',
+                            style: themeData.textTheme.bodyText2!.copyWith(
+                              color: themeData.colorScheme.secondary
+                                  .withOpacity(0.8),
+                              height: 1.6,
+                              fontSize: 14,
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 ]),
