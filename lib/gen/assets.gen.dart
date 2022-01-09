@@ -58,6 +58,9 @@ class $AssetsImgIconsGen {
   AssetGenImage get search =>
       const AssetGenImage('assets/img/icons/Search.png');
 
+  /// File path: assets/img/icons/Thumbs.svg
+  SvgGenImage get thumbs => const SvgGenImage('assets/img/icons/Thumbs.svg');
+
   /// File path: assets/img/icons/Twitter.png
   AssetGenImage get twitter =>
       const AssetGenImage('assets/img/icons/Twitter.png');
@@ -163,6 +166,10 @@ class $AssetsImgPostsLargeGen {
   /// File path: assets/img/posts/large/large_post_6.jpg
   AssetGenImage get largePost6 =>
       const AssetGenImage('assets/img/posts/large/large_post_6.jpg');
+
+  /// File path: assets/img/posts/large/single_post.png
+  AssetGenImage get singlePost =>
+      const AssetGenImage('assets/img/posts/large/single_post.png');
 }
 
 class $AssetsImgPostsSmallGen {
