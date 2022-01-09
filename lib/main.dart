@@ -5,9 +5,11 @@ import 'package:blog_club_hash/splash.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+const backgroundMainColor = Color(0xffF4F7FF);
+
 void main() {
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-    statusBarColor: Color(0xffF8FAFF),
+    statusBarColor: backgroundMainColor,
     statusBarIconBrightness: Brightness.dark,
     systemNavigationBarColor: Colors.white,
     systemNavigationBarIconBrightness: Brightness.dark,
@@ -23,7 +25,6 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     const primaryTextColor = Color(0xff0D253C);
     const secondaryTextColor = Color(0xff2D4379);
-    const backgroundMainColor = Color(0xffF8FAFF);
     const primaryColor = Color(0xff376AED);
     return MaterialApp(
       title: 'Blog Club',
