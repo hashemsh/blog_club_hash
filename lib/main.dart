@@ -1,6 +1,7 @@
 import 'package:blog_club_hash/article.dart';
 import 'package:blog_club_hash/gen/fonts.gen.dart';
 import 'package:blog_club_hash/home.dart';
+import 'package:blog_club_hash/profile.dart';
 import 'package:blog_club_hash/splash.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -11,7 +12,7 @@ void main() {
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
     statusBarColor: backgroundMainColor,
     statusBarIconBrightness: Brightness.dark,
-    systemNavigationBarColor: Colors.white,
+    systemNavigationBarColor: backgroundMainColor,
     systemNavigationBarIconBrightness: Brightness.dark,
   ));
   runApp(const MyApp());
@@ -94,6 +95,11 @@ class MyApp extends StatelessWidget {
             color: primaryTextColor,
             fontSize: 14,
           ),
+          bodyText1: TextStyle(
+            fontFamily: FontFamily.avenir,
+            color: primaryTextColor,
+            fontSize: 14,
+          ),
           bodyText2: TextStyle(
             fontFamily: FontFamily.avenir,
             color: secondaryTextColor,
@@ -112,7 +118,7 @@ class MyApp extends StatelessWidget {
       //     ),
       //   ],
       // ),
-      home: const ArticleScreen(),
+      home: const ProfileScreen(),
     );
   }
 }
