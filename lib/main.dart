@@ -147,7 +147,7 @@ class _MainScreenState extends State<MainScreen> {
             bottom: bottomNavigationHeight,
             child: IndexedStack(
               index: selectedScreenIndex,
-              children: [
+              children: const [
                 HomeScreen(),
                 ArticleScreen(),
                 SearchScreen(),
