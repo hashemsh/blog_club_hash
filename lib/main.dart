@@ -79,8 +79,8 @@ class MyApp extends StatelessWidget {
           ),
           caption: TextStyle(
             fontFamily: FontFamily.avenir,
-            fontWeight: FontWeight.w700,
-            fontSize: 10,
+            fontWeight: FontWeight.bold,
+            fontSize: 11,
             color: Color(0xff7B8BB2),
           ),
           headline4: TextStyle(
@@ -118,12 +118,83 @@ class MyApp extends StatelessWidget {
       //     ),
       //   ],
       // ),
-      home: const ProfileScreen(),
+      home: const MainScreen(),
+    );
+  }
+}
+
+class MainScreen extends StatefulWidget {
+  const MainScreen({Key? key}) : super(key: key);
+
+  @override
+  State<MainScreen> createState() => _MainScreenState();
+}
+
+const int homeIndex = 0;
+const int articleIndex = 1;
+const int searchIndex = 2;
+const int menuIndex = 3;
+const double bottomNavigationHeight = 65;
+
+class _MainScreenState extends State<MainScreen> {
+  int selectedScreenIndex = homeIndex;
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Stack(
+        children: [
+          Positioned.fill(
+            bottom: bottomNavigationHeight,
+            child: IndexedStack(
+              index: selectedScreenIndex,
+              children: [
+                HomeScreen(),
+                ArticleScreen(),
+                SearchScreen(),
+                ProfileScreen(),
+              ],
+            ),
+          ),
+          Positioned(
+            bottom: 0,
+            left: 0,
+            right: 0,
+            child: _BottomNavigation(
+              selectedIndex: selectedScreenIndex,
+              onTap: (int index) {
+                setState(() {
+                  selectedScreenIndex = index;
+                });
+              },
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class SearchScreen extends StatelessWidget {
+  const SearchScreen({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Text(
+        'Search Screen',
+        style: Theme.of(context).textTheme.headline4,
+      ),
     );
   }
 }
 
 class _BottomNavigation extends StatelessWidget {
+  final Function(int index) onTap;
+  final int selectedIndex;
+
+  const _BottomNavigation(
+      {Key? key, required this.onTap, required this.selectedIndex})
+      : super(key: key);
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -135,7 +206,7 @@ class _BottomNavigation extends StatelessWidget {
             right: 0,
             bottom: 0,
             child: Container(
-              height: 65,
+              height: bottomNavigationHeight,
               decoration: BoxDecoration(
                 color: Colors.white,
                 boxShadow: [
@@ -147,28 +218,44 @@ class _BottomNavigation extends StatelessWidget {
               ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: const [
+                children: [
                   BottomNavigationItem(
                     iconFileName: 'Home.png',
-                    activeIconFileName: 'Home.png',
+                    activeIconFileName: 'HomeActive.png',
+                    onTap: () {
+                      onTap(homeIndex);
+                    },
+                    isActive: selectedIndex == homeIndex,
                     title: 'Home',
                   ),
                   BottomNavigationItem(
                     iconFileName: 'Articles.png',
-                    activeIconFileName: 'Articles.png',
+                    activeIconFileName: 'ArticlesActive.png',
+                    onTap: () {
+                      onTap(articleIndex);
+                    },
+                    isActive: selectedIndex == articleIndex,
                     title: 'Article',
                   ),
-                  SizedBox(
-                    width: 8,
+                  Expanded(
+                    child: Container(),
                   ),
                   BottomNavigationItem(
                     iconFileName: 'Search.png',
-                    activeIconFileName: 'Search.png',
+                    activeIconFileName: 'SearchActive.png',
+                    onTap: () {
+                      onTap(searchIndex);
+                    },
+                    isActive: selectedIndex == searchIndex,
                     title: 'Search',
                   ),
                   BottomNavigationItem(
                     iconFileName: 'Menu.png',
-                    activeIconFileName: 'Menu.png',
+                    activeIconFileName: 'MenuActive.png',
+                    onTap: () {
+                      onTap(menuIndex);
+                    },
+                    isActive: selectedIndex == menuIndex,
                     title: 'Menu',
                   ),
                 ],
@@ -205,28 +292,45 @@ class BottomNavigationItem extends StatelessWidget {
   final String iconFileName;
   final String activeIconFileName;
   final String title;
+  final bool isActive;
+  final Function() onTap;
 
   const BottomNavigationItem(
       {Key? key,
       required this.iconFileName,
       required this.activeIconFileName,
-      required this.title})
+      required this.title,
+      required this.onTap,
+      required this.isActive})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Image.asset('assets/img/icons/$iconFileName'),
-        const SizedBox(
-          height: 4,
+    final ThemeData themeData = Theme.of(context);
+    return Expanded(
+      child: InkWell(
+        onTap: onTap,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Image.asset(
+              'assets/img/icons/${isActive ? activeIconFileName : iconFileName}',
+              width: 24,
+              height: 24,
+            ),
+            const SizedBox(
+              height: 4,
+            ),
+            Text(
+              title,
+              style: themeData.textTheme.caption!.apply(
+                  color: isActive
+                      ? themeData.colorScheme.primary
+                      : themeData.textTheme.caption!.color),
+            )
+          ],
         ),
-        Text(
-          title,
-          style: Theme.of(context).textTheme.caption,
-        )
-      ],
+      ),
     );
   }
 }
