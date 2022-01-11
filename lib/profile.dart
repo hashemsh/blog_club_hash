@@ -275,7 +275,11 @@ class ProfileScreen extends StatelessWidget {
                       ],
                     ),
                   ),
-                  for (var i = 0; i < posts.length; i++) Post(post: posts[i]),
+                  for (var i = 0; i < posts.length; i++)
+                    Post(
+                      post: posts[i],
+                      withShadow: false,
+                    ),
                 ],
               ),
             ),

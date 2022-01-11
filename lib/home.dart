@@ -324,7 +324,10 @@ class _PostList extends StatelessWidget {
           physics: const ClampingScrollPhysics(),
           itemBuilder: (context, index) {
             final post = posts[index];
-            return Post(post: post);
+            return Post(
+              post: post,
+              withShadow: true,
+            );
           },
         ),
       ],
@@ -336,9 +339,11 @@ class Post extends StatelessWidget {
   const Post({
     Key? key,
     required this.post,
+    required this.withShadow,
   }) : super(key: key);
 
   final PostData post;
+  final bool withShadow;
 
   @override
   Widget build(BuildContext context) {
@@ -348,12 +353,14 @@ class Post extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(16),
-        boxShadow: const [
-          BoxShadow(
-            blurRadius: 10,
-            color: Color(0x1a5282FF),
-          )
-        ],
+        boxShadow: withShadow
+            ? const [
+                BoxShadow(
+                  blurRadius: 10,
+                  color: Color(0x1a5282FF),
+                )
+              ]
+            : null,
       ),
       child: Row(
         children: [
