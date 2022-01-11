@@ -1,7 +1,9 @@
+import 'package:blog_club_hash/article.dart';
 import 'package:blog_club_hash/carousel/carousel_slider.dart';
 import 'package:blog_club_hash/data.dart';
 import 'package:blog_club_hash/gen/assets.gen.dart';
 import 'package:blog_club_hash/gen/fonts.gen.dart';
+import 'package:blog_club_hash/main.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -347,105 +349,113 @@ class Post extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 149,
-      margin: const EdgeInsets.fromLTRB(32, 8, 32, 8),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(16),
-        boxShadow: withShadow
-            ? const [
-                BoxShadow(
-                  blurRadius: 10,
-                  color: Color(0x1a5282FF),
-                )
-              ]
-            : null,
+    return InkWell(
+      onTap: () => Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (context) => const SimpleScreen(),
+        ),
       ),
-      child: Row(
-        children: [
-          ClipRRect(
-            borderRadius: BorderRadius.circular(16),
-            child: Image.asset(
-              'assets/img/posts/small/${post.imageFileName}',
-              width: 120,
-            ),
-          ),
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.fromLTRB(16, 0, 16, 0),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    post.caption,
-                    style: const TextStyle(
-                      fontFamily: FontFamily.avenir,
-                      fontSize: 14,
-                      fontWeight: FontWeight.w700,
-                      color: Color(0xff376AED),
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 8,
-                  ),
-                  Text(
-                    post.title,
-                    style: Theme.of(context).textTheme.subtitle2,
-                  ),
-                  const SizedBox(
-                    height: 16,
-                  ),
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: [
-                      Icon(
-                        CupertinoIcons.hand_thumbsup,
-                        size: 16,
-                        color: Theme.of(context).textTheme.bodyText2!.color,
-                      ),
-                      const SizedBox(
-                        width: 4,
-                      ),
-                      Text(
-                        post.likes,
-                        style: Theme.of(context).textTheme.bodyText2,
-                      ),
-                      const SizedBox(
-                        width: 16,
-                      ),
-                      Icon(
-                        CupertinoIcons.clock,
-                        size: 16,
-                        color: Theme.of(context).textTheme.bodyText2!.color,
-                      ),
-                      const SizedBox(
-                        width: 4,
-                      ),
-                      Text(
-                        post.time,
-                        style: Theme.of(context).textTheme.bodyText2,
-                      ),
-                      Expanded(
-                        child: Container(
-                          alignment: Alignment.centerRight,
-                          child: Icon(
-                            post.isBookmarked
-                                ? CupertinoIcons.bookmark_fill
-                                : CupertinoIcons.bookmark,
-                            size: 16,
-                            color: Theme.of(context).textTheme.bodyText2!.color,
-                          ),
-                        ),
-                      )
-                    ],
+      child: Container(
+        height: 149,
+        margin: const EdgeInsets.fromLTRB(32, 8, 32, 8),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(16),
+          boxShadow: withShadow
+              ? const [
+                  BoxShadow(
+                    blurRadius: 10,
+                    color: Color(0x1a5282FF),
                   )
-                ],
+                ]
+              : null,
+        ),
+        child: Row(
+          children: [
+            ClipRRect(
+              borderRadius: BorderRadius.circular(16),
+              child: Image.asset(
+                'assets/img/posts/small/${post.imageFileName}',
+                width: 120,
               ),
             ),
-          )
-        ],
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(16, 0, 16, 0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      post.caption,
+                      style: const TextStyle(
+                        fontFamily: FontFamily.avenir,
+                        fontSize: 14,
+                        fontWeight: FontWeight.w700,
+                        color: Color(0xff376AED),
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 8,
+                    ),
+                    Text(
+                      post.title,
+                      style: Theme.of(context).textTheme.subtitle2,
+                    ),
+                    const SizedBox(
+                      height: 16,
+                    ),
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        Icon(
+                          CupertinoIcons.hand_thumbsup,
+                          size: 16,
+                          color: Theme.of(context).textTheme.bodyText2!.color,
+                        ),
+                        const SizedBox(
+                          width: 4,
+                        ),
+                        Text(
+                          post.likes,
+                          style: Theme.of(context).textTheme.bodyText2,
+                        ),
+                        const SizedBox(
+                          width: 16,
+                        ),
+                        Icon(
+                          CupertinoIcons.clock,
+                          size: 16,
+                          color: Theme.of(context).textTheme.bodyText2!.color,
+                        ),
+                        const SizedBox(
+                          width: 4,
+                        ),
+                        Text(
+                          post.time,
+                          style: Theme.of(context).textTheme.bodyText2,
+                        ),
+                        Expanded(
+                          child: Container(
+                            alignment: Alignment.centerRight,
+                            child: Icon(
+                              post.isBookmarked
+                                  ? CupertinoIcons.bookmark_fill
+                                  : CupertinoIcons.bookmark,
+                              size: 16,
+                              color:
+                                  Theme.of(context).textTheme.bodyText2!.color,
+                            ),
+                          ),
+                        )
+                      ],
+                    )
+                  ],
+                ),
+              ),
+            )
+          ],
+        ),
       ),
     );
   }

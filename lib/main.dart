@@ -138,51 +138,126 @@ const double bottomNavigationHeight = 65;
 
 class _MainScreenState extends State<MainScreen> {
   int selectedScreenIndex = homeIndex;
+  final List<int> _history = [];
+
+  GlobalKey<NavigatorState> _homeKey = GlobalKey();
+  GlobalKey<NavigatorState> _articleKey = GlobalKey();
+  GlobalKey<NavigatorState> _searchKey = GlobalKey();
+  GlobalKey<NavigatorState> _menuKey = GlobalKey();
+
+  late final map = {
+    homeIndex: _homeKey,
+    articleIndex: _articleKey,
+    searchIndex: _searchKey,
+    menuIndex: _menuKey
+  };
+
+  Future<bool> _onWillPop() async {
+    final NavigatorState currentSelectedTabNavigatorState =
+        map[selectedScreenIndex]!.currentState!;
+    if (currentSelectedTabNavigatorState.canPop()) {
+      currentSelectedTabNavigatorState.pop();
+      return false;
+    } else if (_history.isNotEmpty) {
+      setState(() {
+        selectedScreenIndex = _history.last;
+        _history.removeLast();
+      });
+      return false;
+    }
+    return true;
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Stack(
-        children: [
-          Positioned.fill(
-            bottom: bottomNavigationHeight,
-            child: IndexedStack(
-              index: selectedScreenIndex,
-              children: const [
-                HomeScreen(),
-                ArticleScreen(),
-                SearchScreen(),
-                ProfileScreen(),
-              ],
+    return WillPopScope(
+      onWillPop: _onWillPop,
+      child: Scaffold(
+        body: Stack(
+          children: [
+            Positioned.fill(
+              bottom: bottomNavigationHeight,
+              child: IndexedStack(
+                index: selectedScreenIndex,
+                children: [
+                  Navigator(
+                    key: _homeKey,
+                    onGenerateRoute: (settings) => MaterialPageRoute(
+                      builder: (context) => HomeScreen(),
+                    ),
+                  ),
+                  Navigator(
+                    key: _articleKey,
+                    onGenerateRoute: (settings) => MaterialPageRoute(
+                      builder: (context) => ArticleScreen(),
+                    ),
+                  ),
+                  Navigator(
+                    key: _searchKey,
+                    onGenerateRoute: (settings) => MaterialPageRoute(
+                      builder: (context) => SimpleScreen(),
+                    ),
+                  ),
+                  Navigator(
+                    key: _menuKey,
+                    onGenerateRoute: (settings) => MaterialPageRoute(
+                      builder: (context) => ProfileScreen(),
+                    ),
+                  ),
+                ],
+              ),
             ),
-          ),
-          Positioned(
-            bottom: 0,
-            left: 0,
-            right: 0,
-            child: _BottomNavigation(
-              selectedIndex: selectedScreenIndex,
-              onTap: (int index) {
-                setState(() {
-                  selectedScreenIndex = index;
-                });
-              },
+            Positioned(
+              bottom: 0,
+              left: 0,
+              right: 0,
+              child: _BottomNavigation(
+                selectedIndex: selectedScreenIndex,
+                onTap: (int index) {
+                  setState(() {
+                    _history.remove(
+                        selectedScreenIndex); // if _history have this index Remove it .
+                    _history.add(
+                        selectedScreenIndex); // add last state of page in history for navigat .
+                    selectedScreenIndex = index;
+                  });
+                },
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
 }
 
-class SearchScreen extends StatelessWidget {
-  const SearchScreen({Key? key}) : super(key: key);
+int screenNumber = 1;
+
+class SimpleScreen extends StatelessWidget {
+  const SimpleScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Text(
-        'Search Screen',
-        style: Theme.of(context).textTheme.headline4,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(
+            'Screen #$screenNumber',
+            style: Theme.of(context).textTheme.headline4,
+          ),
+          ElevatedButton(
+            onPressed: () {
+              screenNumber++;
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => const SimpleScreen(),
+                ),
+              );
+            },
+            child: const Text('Click Me'),
+          ),
+        ],
       ),
     );
   }
