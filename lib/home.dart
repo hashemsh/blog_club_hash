@@ -1,4 +1,3 @@
-import 'package:blog_club_hash/article.dart';
 import 'package:blog_club_hash/carousel/carousel_slider.dart';
 import 'package:blog_club_hash/data.dart';
 import 'package:blog_club_hash/gen/assets.gen.dart';
@@ -352,7 +351,9 @@ class Post extends StatelessWidget {
     return InkWell(
       onTap: () => Navigator.of(context).push(
         MaterialPageRoute(
-          builder: (context) => const SimpleScreen(),
+          builder: (context) => const SimpleScreen(
+            tabName: 'Home',
+          ),
         ),
       ),
       child: Container(

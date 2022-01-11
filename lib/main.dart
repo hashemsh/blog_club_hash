@@ -118,7 +118,8 @@ class MyApp extends StatelessWidget {
       //     ),
       //   ],
       // ),
-      home: const MainScreen(),
+      home: const SplashScreen(),
+      debugShowCheckedModeBanner: false,
     );
   }
 }
@@ -140,10 +141,10 @@ class _MainScreenState extends State<MainScreen> {
   int selectedScreenIndex = homeIndex;
   final List<int> _history = [];
 
-  GlobalKey<NavigatorState> _homeKey = GlobalKey();
-  GlobalKey<NavigatorState> _articleKey = GlobalKey();
-  GlobalKey<NavigatorState> _searchKey = GlobalKey();
-  GlobalKey<NavigatorState> _menuKey = GlobalKey();
+  final GlobalKey<NavigatorState> _homeKey = GlobalKey();
+  final GlobalKey<NavigatorState> _articleKey = GlobalKey();
+  final GlobalKey<NavigatorState> _searchKey = GlobalKey();
+  final GlobalKey<NavigatorState> _menuKey = GlobalKey();
 
   late final map = {
     homeIndex: _homeKey,
@@ -180,30 +181,11 @@ class _MainScreenState extends State<MainScreen> {
               child: IndexedStack(
                 index: selectedScreenIndex,
                 children: [
-                  Navigator(
-                    key: _homeKey,
-                    onGenerateRoute: (settings) => MaterialPageRoute(
-                      builder: (context) => HomeScreen(),
-                    ),
-                  ),
-                  Navigator(
-                    key: _articleKey,
-                    onGenerateRoute: (settings) => MaterialPageRoute(
-                      builder: (context) => ArticleScreen(),
-                    ),
-                  ),
-                  Navigator(
-                    key: _searchKey,
-                    onGenerateRoute: (settings) => MaterialPageRoute(
-                      builder: (context) => SimpleScreen(),
-                    ),
-                  ),
-                  Navigator(
-                    key: _menuKey,
-                    onGenerateRoute: (settings) => MaterialPageRoute(
-                      builder: (context) => ProfileScreen(),
-                    ),
-                  ),
+                  _navigator(_homeKey, homeIndex, const HomeScreen()),
+                  _navigator(_articleKey, articleIndex, const ArticleScreen()),
+                  _navigator(_searchKey, searchIndex,
+                      const SimpleScreen(tabName: 'Search')),
+                  _navigator(_menuKey, menuIndex, const ProfileScreen()),
                 ],
               ),
             ),
@@ -229,12 +211,27 @@ class _MainScreenState extends State<MainScreen> {
       ),
     );
   }
+
+  Widget _navigator(GlobalKey key, int index, Widget child) {
+    return key.currentState == null && selectedScreenIndex != index
+        ? Container()
+        : Navigator(
+            key: key,
+            onGenerateRoute: (settings) => MaterialPageRoute(
+              builder: (context) => Offstage(
+                offstage: selectedScreenIndex != index,
+                child: child,
+              ),
+            ),
+          );
+  }
 }
 
-int screenNumber = 1;
-
 class SimpleScreen extends StatelessWidget {
-  const SimpleScreen({Key? key}) : super(key: key);
+  const SimpleScreen({Key? key, required this.tabName, this.screenNumber = 1})
+      : super(key: key);
+  final String tabName;
+  final int screenNumber;
 
   @override
   Widget build(BuildContext context) {
@@ -243,15 +240,17 @@ class SimpleScreen extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Text(
-            'Screen #$screenNumber',
+            'tab : $tabName, Screen #$screenNumber',
             style: Theme.of(context).textTheme.headline4,
           ),
           ElevatedButton(
             onPressed: () {
-              screenNumber++;
               Navigator.of(context).push(
                 MaterialPageRoute(
-                  builder: (context) => const SimpleScreen(),
+                  builder: (context) => SimpleScreen(
+                    tabName: tabName,
+                    screenNumber: screenNumber + 1,
+                  ),
                 ),
               );
             },
