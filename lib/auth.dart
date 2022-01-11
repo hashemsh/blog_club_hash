@@ -1,4 +1,5 @@
 import 'package:blog_club_hash/gen/assets.gen.dart';
+import 'package:blog_club_hash/main.dart';
 import 'package:flutter/material.dart';
 
 class AuthScreen extends StatefulWidget {
@@ -128,7 +129,7 @@ class _Login extends StatelessWidget {
           height: 8,
         ),
         Text(
-          'sign in with your account',
+          'For Test just click LOGIN',
           style: themeData.textTheme.subtitle1!
               .apply(fontSizeFactor: 0.8, color: Colors.black87),
         ),
@@ -145,7 +146,13 @@ class _Login extends StatelessWidget {
           height: 24,
         ),
         ElevatedButton(
-          onPressed: () {},
+          onPressed: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => const MainScreen(),
+              ),
+            );
+          },
           style: ButtonStyle(
             minimumSize: MaterialStateProperty.all(
               Size(

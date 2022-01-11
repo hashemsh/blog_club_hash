@@ -1,7 +1,6 @@
 import 'package:blog_club_hash/auth.dart';
 import 'package:blog_club_hash/data.dart';
 import 'package:blog_club_hash/gen/assets.gen.dart';
-import 'package:blog_club_hash/home.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
